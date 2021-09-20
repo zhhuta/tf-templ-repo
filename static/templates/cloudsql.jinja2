@@ -14,8 +14,9 @@ module "{{ name }}" {
 
   name                = "{{ name }}-master"
   database_version    = "{{ version }}"
-  team                = "data_eng"
+  team                = "{{teams}}"
   deletion_protection = true
+  labels = {{labels}}
 
   settings = {
     tier                 = "{{ tier }}"
@@ -31,7 +32,7 @@ module "{{ name }}" {
 {% for zone in ha_replica_zones %}
     { name                         = "{{name}}-read-relica-{{loop.index0}}"
       region                       = var.region
-      deletion_protection_replicas ={{del_protection}}
+      deletion_protection_replicas = true
       settings = {
         tier                = "{{ tier }}"
         disk_size           = local.disk_size
