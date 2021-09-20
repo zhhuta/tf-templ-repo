@@ -14,9 +14,9 @@ module "{{ name }}" {
 
   name                = "{{ name }}-master"
   database_version    = "{{ version }}"
-  team                = "{{teams}}"
+  team                = "data_eng"
   deletion_protection = true
-  labels = {{labels}}
+
 
   settings = {
     tier                 = "{{ tier }}"
