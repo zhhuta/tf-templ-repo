@@ -17,18 +17,19 @@ module "{{ name }}" {
   team                = "data_eng"
   deletion_protection = true
 
+
   settings = {
     tier                 = "{{ tier }}"
     disk_size            = local.disk_size
     availability_type    = "ZONAL"
     ip_configuration     = { ipv4_enabled = false }
     backup_configuration = { enabled = true, binary_log_enabled = true, start_time = "20:55" }
-    location_preference  = { zone = "{{ zone |default("us-east4-d",true) }}" }
+    location_preference  = { zone = "{{ master_zone |default("us-east4-d",true) }}" }
     database_flags       = local.database_flags
   }
 {% if ha == true %}
   read_replicas = [
-{% for zone in ha_zones %}
+{% for zone in ha_replica_zones %}
     { name                         = "{{name}}-read-relica-{{loop.index0}}"
       region                       = var.region
       deletion_protection_replicas = true
