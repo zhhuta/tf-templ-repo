@@ -1,0 +1,12 @@
+module "{{name}}" {
+    source                 = "../terraform/modules/terraform-gcp-log-sink"
+    name                   = "{{name}}"
+    scope                  = "{{scope}}"
+    project                = {{project}}
+    organization           = {{organisation}}
+    destination            = "pubsub.googleapis.com/projects/{{project}}/topics/instance-activity"
+    # destination            = "storage.googleapis.com/${google_storage_bucket.log-bucket.name}"
+    destination            = "bigquery.googleapis.com/projects/{{project}}/datasets/{{bq_log_dataset}}"
+    #filter                 = "{{filter}}" #"resource.type = gce_instance AND severity >= WARN"
+    unique_writer_identity = true
+}
