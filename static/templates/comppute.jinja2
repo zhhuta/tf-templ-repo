@@ -1,0 +1,25 @@
+
+module "{{name}}" {
+  source       = "git::https://github.com/zhhuta/terraform-gcp.git//modules/compute_instance"
+  module_count = 1
+
+  name        = "{{name}}"
+  
+  disk_size    = "{{disk_size}}"
+  image        = "projects/infra-nonprod/global/images/{{image}}"
+  machine_type = "{{machine_type}}"
+  servertype   = "{{serevr_type}}"
+  subnet_type  = "{{subnet_type}}"
+  team         = "{{team}}"
+
+  
+
+  labels = {
+    owner = "{{team}}-${var.env}"
+  }
+
+  tags = [
+    "{tags}",
+  ]
+
+}
