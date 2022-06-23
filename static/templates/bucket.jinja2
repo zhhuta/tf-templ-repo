@@ -1,0 +1,23 @@
+module "{{ name }}" {
+  source = "git::https://github.com/pcln/terraform-gcp-bucket.git//modules/bucket_advanced_tfo"
+
+  # bucket
+  name = "{{name}}"
+  team = "fly-supply"
+  
+  objectViewer = [
+    "{{member}}",
+  ]
+
+  # passthrough
+  project = var.project
+
+  lifecycle_rules = [{
+    action = {
+      type = "{{life_cycle}}"
+    }
+    condition = {
+      age = {{age}}
+    }
+  }]
+}
